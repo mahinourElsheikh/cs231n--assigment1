@@ -21,32 +21,25 @@ def svm_loss_naive(W, X, y, reg):
   """
   dW = np.zeros(W.shape) # initialize the gradient as zero
 
-   # compute the loss and the gradient
+  # compute the loss and the gradient
   num_classes = W.shape[1]
   num_train = X.shape[0]
   loss = 0.0
   for i in range(num_train):
     scores = X[i].dot(W)
     correct_class_score = scores[y[i]]
-    number = 0
     for j in range(num_classes):
       if j == y[i]:
         continue
       margin = scores[j] - correct_class_score + 1 # note delta = 1
       if margin > 0:
         loss += margin
-        number+=1
-        dW[:,j] += np.transpose(X[i])
-
-    dW[:,y[i]]+= -number* np.transpose(X[i])
-        
 
   # Right now the loss is a sum over all training examples, but we want it
   # to be an average instead so we divide by num_train.
   loss /= num_train
-  dW /= num_train
+
   # Add regularization to the loss.
-  dW += reg * W
   loss += reg * np.sum(W * W)
 
   #############################################################################
@@ -76,17 +69,7 @@ def svm_loss_vectorized(W, X, y, reg):
   # Implement a vectorized version of the structured SVM loss, storing the    #
   # result in loss.                                                           #
   #############################################################################
-  scores = X.dot(W)
-  y_temp = y.copy()
-  y= y.reshape(X.shape[0],1)
-  y = np.transpose(y).tolist()
-  correct_scores = np.transpose(scores[np.arange(scores.shape[0]),y])
-  result = scores - correct_scores + 1
-  result[np.arange(scores.shape[0]),y] = 0
-  result[result < 0]=0
-  loss = np.sum(result)
-  loss/= (X.shape[0])
-  loss += reg * np.sum(W*W)
+  pass
   #############################################################################
   #                             END OF YOUR CODE                              #
   #############################################################################
@@ -101,23 +84,7 @@ def svm_loss_vectorized(W, X, y, reg):
   # to reuse some of the intermediate values that you used to compute the     #
   # loss.                                                                     #
   #############################################################################
-  num_train = X.shape[0]
-  mask = result.copy()
-  mask[mask>0]=1
-  
-  for j in range (num_train):
-        number = 0
-        X_temp = X[j].copy()
-        X_temp = X_temp.reshape((X[j].shape[0]),1)
-        temp =X_temp.dot(np.transpose(mask[j][:].reshape(W.shape[1],1)))
-        dW[:,:] += temp
-        dW[:,y_temp[j]] -=  X[j]
-        number = np.sum(mask[j,:])-1
-        dW[:,y_temp[j]]+= -1*number* X[j]
-
-  dW /= num_train
-  # Add regularization to the loss.
-  dW += reg * W
+  pass
   #############################################################################
   #                             END OF YOUR CODE                              #
   #############################################################################
