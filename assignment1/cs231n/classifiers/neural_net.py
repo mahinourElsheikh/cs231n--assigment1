@@ -123,7 +123,31 @@ class TwoLayerNet(object):
     dJ_db2=np.sum(ds,axis=0).reshape(C)
     dJ_dW2 +=(2) * reg * W2
     dJ_dz2 = ds
-    pass
+    #############################################################################
+    # TODO: Compute the backward pass, computing the derivatives of the weights #
+    # and biases. Store the results in the grads dictionary. For example,       #
+    # grads['W1'] should store the gradient on W1, and be a matrix of same size #
+    #############################################################################
+    
+    dZ2_da1 = W2
+    dJ_da1= dJ_dz2.dot(dZ2_da1.T)
+    da1_dz1= z1.copy()
+    da1_dz1[da1_dz1>0]=1
+    da1_dz1[da1_dz1<=0]=0
+    dJ_dz1 = dJ_da1*(da1_dz1)
+    dZ1_dW1= X
+    dZ1_db1 =1
+    
+    dJ_dW1 = (dZ1_dW1.T).dot(dJ_dz1) + (2) * reg * W1
+    #print(dJ_dW1.shape)
+    
+    dJ_db1 =np.sum(dJ_dz1,axis=0).reshape(H)
+
+    
+    grads['W1']= dJ_dW1
+    grads['b1']= dJ_db1
+    grads['W2']= dJ_dW2
+    grads['b2']= dJ_db2
     #############################################################################
     #                              END OF YOUR CODE                             #
     #############################################################################
