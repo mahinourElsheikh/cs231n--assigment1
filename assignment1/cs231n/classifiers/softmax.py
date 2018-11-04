@@ -92,6 +92,23 @@ def softmax_loss_vectorized(W, X, y, reg):
   # regularization!                                                           #
   #############################################################################
  
+  s= np.dot(X, W) # (N, C)              #S = W.X
+  
+  #compute loss
+  s -= np.max(s)                         #to avoid numeric stability
+  s= np.exp(s)                           #exponential
+  s /= np.sum(s,axis=1,keepdims=True)    #probalbility 
+  loss -= (1/N)*np.sum(np.log(s[np.arange(N), y]))     #get loss = 1/N(sigma(log(k)))where K is when S is the correct class 
+  loss +=  reg * np.sum(W**2)                          #loss = loss + R(W)
+  
+  #gradient
+  ds = (1/N)*s              #ds = (1/N)*(s)
+  
+  ds[np.arange(N), y] -= (1/N)    #if label is correct ds = -1/N*(1-s) = (1/N)*(s)- (1/N)
+  
+  dW = np.dot(X.T, ds)
+  
+  dW +=(1/2) * reg * W 
   
   #############################################################################
   #                          END OF YOUR CODE                                 #
