@@ -168,7 +168,10 @@ class KNearestNeighbor(object):
       # Store this label in y_pred[i]. Break ties by choosing the smaller     #
       # label.                                                                #
       #########################################################################
-      pass
+      # Maximum_label=[]
+      # Maximum_label=max(set(closest_y))
+      # y_pred[i]= Maximum_label[0]
+      y_pred[i]  =  max(closest_y, key=(Counter(closest_y)).get)
       #########################################################################
       #                           END OF YOUR CODE                            # 
       #########################################################################
