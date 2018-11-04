@@ -101,7 +101,23 @@ def svm_loss_vectorized(W, X, y, reg):
   # to reuse some of the intermediate values that you used to compute the     #
   # loss.                                                                     #
   #############################################################################
-  pass
+  num_train = X.shape[0]
+  mask = result.copy()
+  mask[mask>0]=1
+  
+  for j in range (num_train):
+        number = 0
+        X_temp = X[j].copy()
+        X_temp = X_temp.reshape((X[j].shape[0]),1)
+        temp =X_temp.dot(np.transpose(mask[j][:].reshape(W.shape[1],1)))
+        dW[:,:] += temp
+        dW[:,y_temp[j]] -=  X[j]
+        number = np.sum(mask[j,:])-1
+        dW[:,y_temp[j]]+= -1*number* X[j]
+
+  dW /= num_train
+  # Add regularization to the loss.
+  dW += reg * W
   #############################################################################
   #                             END OF YOUR CODE                              #
   #############################################################################
