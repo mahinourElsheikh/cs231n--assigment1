@@ -256,7 +256,16 @@ class TwoLayerNet(object):
     ###########################################################################
     # TODO: Implement this function; it should be VERY simple!                #
     ###########################################################################
-    pass
+    W1 = self.params['W1']
+    W2 = self.params['W2']
+    b1 = self.params['b1']
+    b2 = self.params['b2']
+    
+    z1= (X.dot(W1))+b1
+    zeros= np.zeros(z1.shape)
+    a1=np.maximum(zeros,z1)
+    z2= (a1.dot(W2))+b2
+    y_pred = np.argmax(z2, axis = 1)
     ###########################################################################
     #                              END OF YOUR CODE                           #
     ###########################################################################
