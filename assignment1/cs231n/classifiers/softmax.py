@@ -2,6 +2,7 @@ import numpy as np
 from random import shuffle
 
 def softmax_loss_naive(W, X, y, reg):
+    
   """
   Softmax loss function, naive implementation (with loops)
 
@@ -27,6 +28,7 @@ def softmax_loss_naive(W, X, y, reg):
   C = W.shape[1]
   S = np.zeros((N,C))
   dS = np.zeros((N,C))
+  
   #############################################################################
   # TODO: Compute the softmax loss and its gradient using explicit loops.     #
   # Store the loss in loss and the gradient in dW. If you are not careful     #

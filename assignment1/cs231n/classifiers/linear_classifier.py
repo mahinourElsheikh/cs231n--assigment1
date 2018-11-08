@@ -37,8 +37,8 @@ class LinearClassifier(object):
     # Run stochastic gradient descent to optimize W
     loss_history = []
     for it in range(num_iters):
-        X_batch = None
-        y_batch = None
+      X_batch = None
+      y_batch = None
       #########################################################################
       # TODO:                                                                 #
       # Sample batch_size elements from the training data and their           #
