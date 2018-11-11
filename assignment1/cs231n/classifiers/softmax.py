@@ -53,8 +53,8 @@ def softmax_loss_naive(W, X, y, reg):
   
   for i in range(N):                       # for each training sample
     for j in range(C):                     # for each class
-        if j == y[i]:                      # when the index is the "correct class" index for the sample
-            
+        if j == y[i]:                      # when the index is the "correct class" 
+                                           #index for the sample
             loss+= -np.log(S[i,j])           #loss = sum(loss of every example)
             
             dS[i,j] = (-1/N) * (1-S[i,j])   #if label is correct ds = -1/N*(1-s) 
@@ -101,7 +101,7 @@ def softmax_loss_vectorized(W, X, y, reg):
   s= np.exp(s)                           #exponential
   s /= np.sum(s,axis=1,keepdims=True)    #probalbility 
   loss -= (1/N)*np.sum(np.log(s[np.arange(N), y]))     #get loss = 1/N(sigma(log(k)))where K is when S is the correct class 
-  loss +=  reg * np.sum(W**2)                          #loss = loss + R(W)
+  loss +=  0.5* reg * np.sum(W**2)                          #loss = loss + R(W)
   
   #gradient
   ds = (1/N)*s              #ds = (1/N)*(s)
@@ -110,7 +110,7 @@ def softmax_loss_vectorized(W, X, y, reg):
   
   dW = np.dot(X.T, ds)
   
-  dW +=(1/2) * reg * W 
+  dW +=  reg * W 
   
   #############################################################################
   #                          END OF YOUR CODE                                 #
