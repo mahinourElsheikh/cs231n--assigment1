@@ -1,4 +1,5 @@
 import numpy as np
+from collections import Counter
 
 class KNearestNeighbor(object):
   """ a kNN classifier with L2 distance """
