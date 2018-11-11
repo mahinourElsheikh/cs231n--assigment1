@@ -39,7 +39,6 @@ class LinearClassifier(object):
     for it in range(num_iters):
       X_batch = None
       y_batch = None
-
       #########################################################################
       # TODO:                                                                 #
       # Sample batch_size elements from the training data and their           #
@@ -99,7 +98,7 @@ class LinearClassifier(object):
     ###########################################################################
     scores = X.dot(self.W)
     y_pred = np.argmax(scores, axis = 1)
-  
+
     ###########################################################################
     #                           END OF YOUR CODE                              #
     ###########################################################################
